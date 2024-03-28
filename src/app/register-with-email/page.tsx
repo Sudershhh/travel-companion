@@ -7,6 +7,7 @@ import Link from "next/link";
 import Header from "../../components/Header/Header";
 import { useForm } from "react-hook-form";
 import { RegisterUserData } from "@/typescript/interfaces";
+import { z } from "zod";
 
 function RegisterWithPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,6 +18,11 @@ function RegisterWithPage() {
     formState: { errors },
   } = useForm<RegisterUserData>();
   const router = useRouter();
+
+  const passwordSchema = z
+    .string()
+    .min(10)
+    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -29,38 +35,49 @@ function RegisterWithPage() {
 
   async function handleUserRegister(registerData: RegisterUserData) {
     try {
-      if (
-        !(
-          registerData.password.trim().length >= 10 ||
-          registerData.confirmPassword.trim().length >= 10
-        )
-      ) {
-        console.error("Password should have a minimum of 10 characters!");
-        return;
-      }
+      passwordSchema.parse(registerData.password);
+      passwordSchema.parse(registerData.confirmPassword);
+
+      const passwordValidationResult = passwordSchema.safeParse(
+        registerData.password
+      );
+      const confirmPasswordValidationResult = passwordSchema.safeParse(
+        registerData.confirmPassword
+      );
+
+      console.log("Password validation result:", passwordValidationResult);
+      console.log(
+        "Confirm password validation result:",
+        confirmPasswordValidationResult
+      );
 
       if (registerData.password !== registerData.confirmPassword) {
         console.error("Passwords should be the same.");
         return;
       }
 
-      registerData = {
-        ...registerData,
-        email,
-      };
-      const response = await fetch("/api/sign-in", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      if (
+        passwordValidationResult.success &&
+        confirmPasswordValidationResult.success
+      ) {
+        registerData = {
+          ...registerData,
+          email,
+        };
+        const response = await fetch("/api/sign-in", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
 
-        body: JSON.stringify(registerData),
-      });
+          body: JSON.stringify(registerData),
+        });
 
-      const registerResponseData = await response.json();
-      console.log("Successfully Registered ", registerResponseData);
-      registerUser(registerResponseData);
-      router.push("/");
+        const registerResponseData = await response.json();
+        console.log("Successfully Registered ", registerResponseData);
+        registerUser(registerResponseData);
+        router.push("/");
+      }
     } catch (error) {
       console.error("Error:", error);
     }
