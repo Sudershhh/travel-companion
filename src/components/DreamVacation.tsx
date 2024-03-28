@@ -17,7 +17,7 @@ function DreamVacation() {
             information, and inspiration from us.
           </p>
         </div>
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+        <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">
           View All
         </button>
       </div>

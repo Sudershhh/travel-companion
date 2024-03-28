@@ -9,7 +9,7 @@ function Banner() {
         <Image
           src={banner}
           alt="Banner"
-          className="w-full h-64 md:h-96 object-cover rounded-md"
+          className="w-full h-72 md:h-96 object-cover rounded-md"
           style={{
             filter: "brightness(70%)",
             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3)",
@@ -38,7 +38,7 @@ function Banner() {
           <p className="text-gray-800 text-xs md:text-sm mr-2 md:mr-4">
             Check the latest COVID-19 restrictions before you travel.
           </p>
-          <p className="text-blue-500 text-xs md:text-sm">Learn more</p>
+          <p className="text-blue-400 text-xs md:text-sm">Learn more</p>
         </div>
       </div>
     </section>

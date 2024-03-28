@@ -16,7 +16,9 @@ function HeaderHome() {
       <nav className="flex justify-center md:justify-end mt-4 md:mt-0">
         <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
           <li>
-            <Link href="/">Home</Link>
+            <Link href="/" className="text-black font-semibold">
+              Home
+            </Link>
           </li>
           <li>
             <Link href="/discover">Discover</Link>
@@ -36,7 +38,7 @@ function HeaderHome() {
       <div className="flex justify-center md:justify-end mt-4 md:mt-0">
         {isLoggedIn ? (
           <Link href="/">
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-md mr-4 md:mr-8 hover:bg-blue-700">
+            <button className="bg-blue-500 text-white px-4 py-2 rounded-md mr-4 md:mr-8 hover:bg-blue-700">
               Dashboard
             </button>
           </Link>
@@ -48,7 +50,7 @@ function HeaderHome() {
               </button>
             </Link>
             <Link href="/sign-in">
-              <button className="bg-blue-600 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-700">
+              <button className="bg-blue-500 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-700">
                 Sign In
               </button>
             </Link>
