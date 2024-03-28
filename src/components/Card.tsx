@@ -8,7 +8,7 @@ import {CardProps} from "../typescript/interfaces"
         <Image src={imageSrc} alt={name} width={100} className="w-full rounded-lg h-2/3"  />
         <div className="p-4">
           <h3 className="text-xl font-semibold mb-2">{name}</h3>
-          <p className="text-gray-600">{propertiesCount} properties</p>
+          <p className="text-gray-600 text-sm">{propertiesCount} properties</p>
         </div>
       </div>
     );
