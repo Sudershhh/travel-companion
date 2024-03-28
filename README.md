@@ -18,7 +18,7 @@
   - **Language**: TypeScript
 
 - **Hosting:**
-  - **Link**: Vercel
+  - **Link**: [Vercel](https://travel-companion-alpha.vercel.app/)
 
 ## How to Run the project?
 
