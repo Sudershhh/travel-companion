@@ -8,7 +8,7 @@ import Header from "../../components/Header/Header";
 import { useForm } from "react-hook-form";
 import { RegisterUserData } from "@/typescript/interfaces";
 import { z } from "zod";
-
+import { passwordSchema } from "@/zod-schema/authorizationSchema";
 function RegisterWithPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -18,11 +18,6 @@ function RegisterWithPage() {
     formState: { errors },
   } = useForm<RegisterUserData>();
   const router = useRouter();
-
-  const passwordSchema = z
-    .string()
-    .min(10)
-    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);

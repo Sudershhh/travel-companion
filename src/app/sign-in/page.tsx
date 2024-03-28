@@ -9,7 +9,8 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/authorizationContext";
 import Google from "@/components/Buttons/Google";
 import FaceBook from "@/components/Buttons/FaceBook";
-
+import { z } from "zod";
+import { passwordSchema, emailSchema } from "@/zod-schema/authorizationSchema";
 function SignIn() {
   const router = useRouter();
   const {
@@ -26,18 +27,30 @@ function SignIn() {
 
   async function handleSignIn(signInData: SignInFormData) {
     try {
-      const response = await fetch("/api/sign-in", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(signInData),
-      });
+      emailSchema.parse(signInData.email);
+      const emailValidationResult = emailSchema.safeParse(signInData.email);
+      console.log("Email validation result:", emailValidationResult);
 
-      const responseData = await response.json();
-      console.log("Successfully Signed In ", responseData);
-      login(responseData);
-      router.push("/");
+      passwordSchema.parse(signInData.password);
+      const passwordValidationResult = passwordSchema.safeParse(
+        signInData.password
+      );
+      console.log("Password validation result:", passwordValidationResult);
+
+      if (passwordValidationResult.success && emailValidationResult.success) {
+        const signInResponse = await fetch("/api/sign-in", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(signInData),
+        });
+
+        const signInResponseData = await signInResponse.json();
+        console.log("Successfully Signed In ", signInResponseData);
+        login(signInResponseData);
+        router.push("/");
+      }
     } catch (error) {
       console.error("Error:", error);
     }
