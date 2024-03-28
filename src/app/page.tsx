@@ -5,20 +5,15 @@ import PopularHotels from "@/components/PopularHotels";
 import Pagination from "@/components/Pagination";
 
 export default function Home() {
-
-
-  function changePage(){
-
-  }
+  function changePage() {}
 
   return (
-      <main className="flex min-h-screen flex-col justify-between bg-white pl-20 pr-20">
-          <HeaderHome />
-          <Banner />
-          <DreamVacation />
-          <PopularHotels />
-          <Pagination totalPages={13} currentPage={1} onPageChange={changePage} />
-      </main>
-
+    <main className="flex min-h-screen flex-col justify-between bg-white pl-20 pr-20">
+      <HeaderHome />
+      <Banner />
+      <DreamVacation />
+      <PopularHotels />
+      <Pagination totalPages={13} currentPage={1} onPageChange={changePage} />
+    </main>
   );
 }

@@ -16,7 +16,7 @@ function PopularHotels() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {hotels.map((hotel, index) => (
-          <Card key={index} {...hotel} />
+          <Card key={`hotel-${index}`} {...hotel} />
         ))}
       </div>
     </div>

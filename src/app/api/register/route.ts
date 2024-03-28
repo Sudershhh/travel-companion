@@ -1,25 +1,31 @@
+import {
+  AuthorizationResponse,
+  RegisterUserData,
+} from "@/typescript/interfaces";
 
-export async function POST(req:Request) {
+export async function POST(req: Request) {
+  try {
+    const { email, password, confirmPassword }: RegisterUserData =
+      await req.json();
 
-    const {email, password, confirmPassword} = await req.json()
+    if (password === confirmPassword) {
+      const successRegisterResponse: AuthorizationResponse = {
+        email,
+        status: "success",
+      };
 
-    if(password === confirmPassword)
-    {
-        const successResponse = {
-            email,
-            status: "success"
-          }
-      
-      
-          return new Response(JSON.stringify(successResponse),{
-            headers:{
-              "Content-Type" : "application/json",
-            },
-            status: 201
-          }
-         )
+      return new Response(JSON.stringify(successRegisterResponse), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        status: 201,
+      });
     }
-    
-
-   
+  } catch (error) {
+    console.error("Error during Registration:", error);
+    return new Response(JSON.stringify({ error: "Error occurred" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 }
